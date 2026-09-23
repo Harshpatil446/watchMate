@@ -7,6 +7,6 @@ dns.setServers(["1.1.1.1", "8.8.8.8"])
 connectDB()
 
 
-app.listen(3000, () => {
+app.listen(8080, () => {
     console.log("Running on port 3000");
 })
