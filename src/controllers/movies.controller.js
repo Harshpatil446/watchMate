@@ -23,4 +23,29 @@ async function getMovies(req, res) {
     }
 }
 
-module.exports = { getMovies }
+async function searchMovies(req, res) {
+    const query = req.query.query
+
+    if (!query) {
+        return res.status(401).json({
+            message: "query is not defined"
+        })
+    }
+
+    try {
+        const response = await axios.get("https://api.themoviedb.org/3/search/movie", {
+            params: {
+                api_key: process.env.TMDB_API_KEY,
+                query: query
+            }
+        })
+        const result = response.data.results
+        res.json(result)
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch movie"
+        })
+    }
+}
+
+module.exports = { getMovies, searchMovies }
